@@ -21,12 +21,12 @@ const upload = multer({
 //---------------------------------------Routes------------------------------------------\\
 
 router.post("/users", async (req, res) => {
+  console.log("Request body:", req.body);
   const user = new User(req.body);
 
   try {
     await user.save();
     const token = await user.generateAuthToken();
-    //    sendWelcomeEmail(user.email, user.name)
     res.status(201).send({ user, token });
   } catch (e) {
     res.status(400).send(e.message);
